@@ -1,6 +1,6 @@
 # Flask-Web-Development
 
-- Pertemuan 1 (Create Layout & Theme)
+- Pertemuan 1 (Create Layout & Theme) - [Download Materi (Zip)](https://github.com/Muhammad-Yunus/Flask-Web-Development/raw/main/pertemuan_1/pertemuan_1.zip)
 	- programming, library, tools & debugging
 	- Flask - Minimum App
 	- Flask - Debug Mode
