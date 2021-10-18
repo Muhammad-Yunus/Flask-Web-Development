@@ -1,0 +1,14 @@
+Flask
+Flask-Admin
+Flask-SQLAlchemy
+flask-wtf
+wtforms 
+wtforms[email]
+Flask-Security
+greenlet 
+eventlet 
+gevent
+gevent-websocket
+python-socketio
+flask-socketio
+
