@@ -9,7 +9,7 @@ def index():
 
     return render_template("index.html", about_URL=url_for('about'))
 
-@app.route('/about')
+@app.route('/about2')
 def about():
     return render_template("about.html", home_URL=url_for('index'))
 

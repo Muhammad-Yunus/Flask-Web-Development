@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-    return "<p>Test Debug Mode</p>"
+    return "<p>Test Debug Mode Update</p>"
 
 app.run(debug=True)
 
