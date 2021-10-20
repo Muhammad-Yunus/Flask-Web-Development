@@ -1,24 +1,24 @@
 # Flask-Web-Development
 
-- Pertemuan 1 (Create Layout & Theme) - [Download Materi (Zip)](https://github.com/Muhammad-Yunus/Flask-Web-Development/raw/main/pertemuan_1/pertemuan_1.zip)
+- Pertemuan 1 (Layout & Theme) - [Download Materi (Zip)](https://github.com/Muhammad-Yunus/Flask-Web-Development/raw/main/pertemuan_1/pertemuan_1.zip)
 	- programming, library, tools & debugging
 	- Flask - Minimum App
 	- Flask - Debug Mode
 	- Flask - Template (HTML element) part 1 (basic widget & menu)
 	- Flask - Bootstrap & JQuery
-- Pertemuan 2 (Create User Form)
-	- Flask - Routing part 1
+- Pertemuan 2 (View & Form)  - [Download Materi (Zip)](https://github.com/Muhammad-Yunus/Flask-Web-Development/raw/main/pertemuan_1/pertemuan_1.zip)
+	- Flask - View/Routing part 1
 	- Flask - Template (HTML element) part 2 (group widget, feedback message)
-	- Flask - Form & User Input
-	- Flask - Database & SQL Alchemy
-	- Flask - CRUD part 1 (insert, update)
-- Pertemuan 3 (Create User List)
-	- Flask - CRUD part 2 (select, delete)
-	- Flask - Table Record & Pagination
-- Pertemuan 4 (Create Device & Sensor Data Management)
-	- Flask - Routing part 2 (Redirect & Error Handling)
-	- Flask - Static Files
-- Pertemuan 5 (Create User Access Management)
+	- Flask - Form & User Input (User Form)
+- Pertemuan 3 (Model & ORM)
+	- Flask - Database & SQL Alchemy (ORM)
+	- Flask - CRUD (create, read, update and delete.)
+	- Flask - Table Record & Pagination (User List)
+- Pertemuan 4 (Project Structure)
+	- Flask - Project Structure
+	- Flask - View/Routing part 2 (Advance Routing)
+	- Flask - Static Files & Upload
+- Pertemuan 5 (Session, Authentication & Authorization)
 	- Flask - User Authentication 
 	- Flask - Session & Site Configuration
 	- Flask - User Authorization 
@@ -34,7 +34,7 @@
 	- Flask - REST API (GET & POST)
 	- Flask - MQTT Subscribe
 	- Flask - MQTT Publish
-- Pertemuan 9
+- Pertemuan 9 (Flask Deployment)
 	- Flask - Serving App (Gunicorn)
 	- Flask - Configure SSL 
 	- Flask - Deploy into Linux VPS
