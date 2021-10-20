@@ -22,7 +22,7 @@ def post(post_id):
 
 @app.route('/circle/<float:radius>')
 def circle(radius): 
-    return "<p> Perimeter of circel with radius %.2f is %.2f. <p>" % (radius, 3.14*radius**2)
+    return "<p> Area of circel with radius %.2f is %.2f. <p>" % (radius, 3.14*radius**2)
 
 
 app.run(debug=True)

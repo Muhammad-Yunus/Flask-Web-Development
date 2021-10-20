@@ -18,7 +18,7 @@ def about():
 @app.route('/users', methods=['GET', 'POST'])
 def users(): 
     if request.method == 'POST':
-        flash("POST Method", "success")
+        flash("Data failed to save into database!", "danger")
         return render_template("users.html")
     else : 
         flash("GET Method", "success")

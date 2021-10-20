@@ -15,6 +15,6 @@ def hello():
 
         print("If you were born in %d, your current age would be %d." % (year, calc_age(year) ))
 
-hello("John Doe")
+hello()
 
 
