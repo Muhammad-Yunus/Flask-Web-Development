@@ -6,7 +6,7 @@
 	- Flask - Debug Mode
 	- Flask - Template (HTML element) part 1 (basic widget & menu)
 	- Flask - Bootstrap & JQuery
-- Pertemuan 2 (View & Form)  - [Download Materi (Zip)](https://github.com/Muhammad-Yunus/Flask-Web-Development/raw/main/pertemuan_1/pertemuan_1.zip)
+- Pertemuan 2 (View & Form)  - [Download Materi (Zip)](https://github.com/Muhammad-Yunus/Flask-Web-Development/raw/main/pertemuan_2/pertemuan_2.zip)
 	- Flask - View/Routing part 1
 	- Flask - Template (HTML element) part 2 (group widget, feedback message)
 	- Flask - Form & User Input (User Form)
