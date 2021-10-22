@@ -10,6 +10,7 @@ class User(db.Model):
     password = db.Column(db.String(200), nullable=False)
     isActive = db.Column(db.Boolean)
     addresses = db.relationship('Address', backref='user', lazy=True)
+    bank_accounts = db.relationship('BankAccount', backref='user', lazy=True)
 
     
 class Address(db.Model):
@@ -20,3 +21,9 @@ class Address(db.Model):
     userId = db.Column(db.Integer, db.ForeignKey('user.id'),
                     nullable=False)
 
+class BankAccount(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    number = db.Column(db.String(20), nullable=False)
+    userId = db.Column(db.Integer, db.ForeignKey('user.id'),
+                    nullable=False)
