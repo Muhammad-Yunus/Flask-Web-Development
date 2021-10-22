@@ -10,7 +10,7 @@
 	- Flask - View/Routing part 1
 	- Flask - Template part 2 (group widget, feedback message)
 	- Flask - Form & User Input (User Form)
-- Pertemuan 3 (Data Model & ORM)
+- Pertemuan 3 (Data Model & ORM) - [Download Materi (Zip)](https://github.com/Muhammad-Yunus/Flask-Web-Development/raw/main/pertemuan_3/pertemuan_3.zip)
 	- Flask - Database & SQL Alchemy (ORM)
 	- Flask - CRUD (create, read, update and delete.)
 	- Flask - Table Record & Pagination (User List)
