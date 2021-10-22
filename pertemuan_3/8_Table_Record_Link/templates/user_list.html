@@ -1,0 +1,26 @@
+{% extends "_layout.html" %}
+{% block content %}
+<div class="container">
+    <div class="jumbotron">
+        <h1>User List</h1>
+        <table class="table table-hover">
+            <tbody>
+                {% for record in users %}
+                <tr>
+                    <td>{{ record.id }}</td>
+                    <td><a href="{{ url_for('user', id = record.id) }}">
+                        {{ record.name }}
+                        </a>
+                    </td>
+                    <td>{{ record.email }}</td>
+                    <td>{{ record.phone }}</td>
+                    <td>{{ record.password }}</td>
+                    <td>{{ record.isActive }}</td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+    </div>
+</div>
+{% endblock %}
+

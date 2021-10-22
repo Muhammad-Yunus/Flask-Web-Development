@@ -1,0 +1,11 @@
+/* change the default link color */
+.nav .nav-item .nav-link {
+    color: rgba(255,255,255,.8);
+}
+/* change the color of active or hovered links */
+.nav-item:hover .nav-link {
+    color: #ffffff;
+}
+.nav-item.active .nav-link {
+    color: #ffffff;
+}
