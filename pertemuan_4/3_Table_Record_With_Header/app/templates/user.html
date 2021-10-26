@@ -1,0 +1,24 @@
+{% extends "_layout.html" %}
+{% block content %}
+<div class="container">
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-5">
+                <h1>User Form</h1>
+
+                <!-- User Form to Submit -->
+                {% from "_form_element_vertical.html" import render_field, render_checkbox, render_button %}
+                <form method="POST" action="{{ url_for('user', id=0) }}">
+                    {{ render_field(form.name) }}
+                    {{ render_field(form.email) }}
+                    {{ render_field(form.phone) }}
+                    {{ render_field(form.password) }}
+                    {{ render_field(form.confirm) }}
+                    {{ render_checkbox(form.isActive) }}
+                    {{ render_button(form.submit, "primary") }}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% macro render_tableRecords(record_list, record_header) -%}
+<div id="tableRecords">
+    {% if record_list is not none %}
+    <div class="table-responsive no-padding">
+        <!-- table records -->
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    {% for header in record_header %}
+                        <th>{{ header }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in record_list %}
+                <tr>
+                    {{ caller(loop, record) }}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    No records to show ...
+    {% endif %}
+</div>
+{%- endmacro %}

@@ -14,7 +14,7 @@
 	- Flask - Database & SQL Alchemy (ORM)
 	- Flask - CRUD (create, read, update and delete.)
 	- Flask - Table Record & Pagination (User List)
-- Pertemuan 4 (Project Structure)
+- Pertemuan 4 (Project Structure) - [Download Materi (Zip)](https://github.com/Muhammad-Yunus/Flask-Web-Development/raw/main/pertemuan_4/pertemuan_4.zip)
 	- Flask - Project Structure
 	- Flask - View/Routing part 2 (Advance Routing)
 	- Flask - Static Files & Upload
