@@ -18,9 +18,9 @@
 	- Flask - Project Structure
 	- Flask - View/Routing part 2 (Advance Routing)
 	- Flask - Static Files & Upload
-- Pertemuan 5 (Session, Authentication & Authorization)
+- Pertemuan 5 (Session, Authentication & Authorization) - [Download Materi (Zip)](https://github.com/Muhammad-Yunus/Flask-Web-Development/raw/main/pertemuan_5/pertemuan_5.zip)
+	- Flask - Session 
 	- Flask - User Authentication 
-	- Flask - Session & Site Configuration
 	- Flask - User Authorization 
 - Pertemuan 6 (Bootstraping App)
 	- Flask Admin - Setup
