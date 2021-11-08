@@ -1,0 +1,29 @@
+{% extends "_layout.html" %}
+{% block content %}
+<section class="vh-100">
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-8 col-lg-6 col-xl-4 p-5 bg-light rounded">
+                {% if form.name.data is none %}
+                <h1>Role Form</h1>
+                {% else %}
+                <h1>{{form.name.data}}</h1>
+                {% endif %}
+
+                <!-- User Form to Submit -->
+                {% from "_form_element_vertical.html" import render_field, render_checkbox, render_button %}
+                <form method="POST" action="{{ url_for('role', id=form.id.data) }}">
+                    {{ form.hidden_tag() }}
+                    {{ render_field(form.name, readonly=True) }}
+                    {{ render_field(form.description) }}
+                    {{ render_button(form.submit, color="danger") }}
+                </form>
+            </div>
+            <div class="col-md-9 col-lg-6 col-xl-5 offset-xl-1">
+                <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-login-form/draw2.png"
+                    class="img-fluid" alt="Sample image">
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

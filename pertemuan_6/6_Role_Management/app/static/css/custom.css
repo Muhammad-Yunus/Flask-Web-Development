@@ -1,0 +1,46 @@
+/* NAVIGATION MENU STYLE */
+.nav .nav-item .nav-link {
+  color: rgba(255,255,255,.8);
+}
+.nav-item:hover .nav-link {
+  color: #ffffff;
+}
+.nav-item.active .nav-link {
+  color: #ffffff;
+}
+
+/* LOGIN STYLE */
+.h-custom {
+    height: calc(100% - 73px);
+  }
+  @media (max-width: 450px) {
+    .h-custom {
+      height: 100%;
+    }
+  }
+
+  
+/* ALERT FLOATING */
+.alert-fixed {
+    position:fixed; 
+    top: 50px; 
+    left: 250px;
+    right: 250px; 
+    width: unset;
+    z-index:9999; 
+    border-radius:0px;
+    box-shadow: 2px 2px 5px grey;
+}
+
+/* ALERT ADDITIONAL STYLE */
+.alert-error {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+/* MULTI SELECT CUSTOM STYLE */
+.bootstrap-select > .dropdown-toggle {
+  border: 1px solid #ced4da;
+  background-color: white;
+}

@@ -1,0 +1,67 @@
+{% macro render_tableRecords(record_list, 
+                            record_header, 
+                            record_count, 
+                            min_page, 
+                            max_page, 
+                            destination, 
+                            search_key,
+                            colspan_name='Action',
+                            colspan=2) -%}
+
+
+<!-- Search Widget -->
+{% with destination=destination, search_key=search_key %}
+{% include '_search_widget.html' %}
+{% endwith %}
+
+
+<!-- Table Record -->
+<div id="tableRecords">
+    {% if record_list is not none %}
+    <div class="table-responsive no-padding">
+        <!-- table records -->
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    {% for header in record_header %}
+                        {% if header == colspan_name %}
+                        <th colspan="{{colspan}}" class="text-center">{{ header }}</th>
+                        {% else %}
+                        <th>{{ header }}</th>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in record_list.items %}
+                <tr>
+                    {{ caller(loop, record) }}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    No records to show ...
+    {% endif %}
+</div>
+
+
+<div class="row mt-5">
+    <div class="col-md-6">
+        <!-- Line Counter -->
+        <ul class="m-sm-0 px-sm-0 py-sm-2 float-left">
+            {% with record_list = record_list, count = record_count %}
+            {% include '_line_counter.html' %}
+            {% endwith %}
+        </ul>
+    </div>
+    <div class="col-md-6 py-sm-2">
+        <!-- Pagination -->
+        {% with record_list = record_list, min_page= min_page, max_page= max_page,
+        destination=destination %}
+        {% include '_pagination.html' %}
+        {% endwith %}
+    </div>
+</div>
+{%- endmacro %}

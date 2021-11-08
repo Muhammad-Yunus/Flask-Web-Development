@@ -1,0 +1,18 @@
+<ul class="pagination m-0 mr-sm-3 float-right">
+{% if record_list.pages > 1  %}
+    <li class="page-item {{ 'disabled' if record_list.prev_num is none }}">
+    <a class="page-link" href="{{ url_for(destination, page=record_list.prev_num) 
+                                if record_list.prev_num is not none else '#'}}">Previous</a>
+    </li>
+    {% for i in range(min_page, max_page) %}
+    <li class="page-item {{ 'active' if i == record_list.page }}">
+        <a class="page-link" href="{{ url_for(destination, page=i) }}">{{ i }}</a>
+    </li>
+    {% endfor %}
+    <li class="page-item {{ 'disabled' if record_list.next_num is none }}">
+    <a class="page-link" href="{{ url_for(destination, page=record_list.next_num) 
+                                if record_list.next_num is not none else '#'}}">Next</a>
+    </li>
+{% endif %}
+</ul>
+

@@ -17,15 +17,13 @@
 - Pertemuan 4 (Project Structure) - [Download Materi (Zip)](https://github.com/Muhammad-Yunus/Flask-Web-Development/raw/main/pertemuan_4/pertemuan_4.zip)
 	- Flask - Project Structure
 	- Flask - View/Routing part 2 (Advance Routing)
-	- Flask - Static Files & Upload
-- Pertemuan 5 (Session, Authentication & Authorization) - [Download Materi (Zip)](https://github.com/Muhammad-Yunus/Flask-Web-Development/raw/main/pertemuan_5/pertemuan_5.zip)
+- Pertemuan 5 (Session & Authentication) - [Download Materi (Zip)](https://github.com/Muhammad-Yunus/Flask-Web-Development/raw/main/pertemuan_5/pertemuan_5.zip)
 	- Flask - Session 
 	- Flask - User Authentication 
+- Pertemuan 6 (Flask Scaffolding) - [Download Materi (Zip)](https://github.com/Muhammad-Yunus/Flask-Web-Development/raw/main/pertemuan_6/pertemuan_6.zip)
 	- Flask - User Authorization 
-- Pertemuan 6 (Bootstraping App)
-	- Flask Admin - Setup
-	- Flask Admin - Create List & Detail using Flask Admin
-	- Flask Admin - Custom Template & Logic
+	- Flask - Scaffolding (Flask App)
+	- Flask - Scaffolding (UI Screen)
 - Pertemuan 7 (Dashboard & Asynchronous Task)
 	- Flask - Websocket (Socket.io)
 	- Flask - Dashboard 

@@ -1,0 +1,27 @@
+{% extends "_layout.html" %}
+{% block content %}
+<div class="container">
+    <div class="p-5 bg-light rounded">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>Role List</h1>
+            </div>
+        </div>
+        <!-- Button Widget -->
+        {% from "_form_element_vertical.html" import render_button %}
+        <!-- Table Records Widget -->
+        {% from '_table_records.html' import render_tableRecords %}
+            {% call(loop, record) render_tableRecords(record_list, record_header, 
+                                            record_count, min_page, max_page, destination, search_key) %}
+                <!-- Create Table Content -->
+                <td>{{ loop.index + record_list.per_page*(record_list.page - 1)}}</td>
+                <td><a href="{{ url_for('role', id = record.id) }}">
+                    {{ record.name }}
+                    </a>
+                </td>
+                <td>{{ record.description }}</td>
+            {% endcall %}
+    </div>
+</div>
+{% endblock %}
+

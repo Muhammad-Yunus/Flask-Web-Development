@@ -1,0 +1,37 @@
+{% extends "_layout.html" %}
+{% block content %}
+<div class="container">
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>User List</h1>
+            </div>
+            <div class="col-sm-6">
+                <div class="float-right">
+                    <a href="{{ url_for('user', id = 0) }}">
+                        <span class="fa fa-plus-circle mr-1"></span>
+                        Add a New User
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Records Widget -->
+        {% from '_table_records.html' import render_tableRecords %}
+            {% call(loop, record) render_tableRecords(record_list, record_header, 
+                                            record_count, min_page, max_page, destination, search_key) %}
+                <!-- Create Table Content -->
+                <td>{{ loop.index + record_list.per_page*(record_list.page - 1)}}</td>
+                <td><a href="{{ url_for('user', id = record.id) }}">
+                    {{ record.name }}
+                    </a>
+                </td>
+                <td>{{ record.email }}</td>
+                <td>{{ record.phone }}</td>
+                <td><i class= "fa {{ 'fa-check text-success' if record.active else 'fa-close text-danger'}}" ></i></td>
+                <td>{{ record.confirmed_at }}</td>
+            {% endcall %}
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,99 @@
+<!-- Form Field | Input Common -->
+{% macro render_field(field, group_class, readonly=False) %}
+<div class="form-group row">
+  {{ field.label(class="col-sm-4 col-form-label", readonly=readonly) }}
+  <!-- Render this if form field error -->
+  {% if field.errors %}
+  <div class="col-sm-8">
+    {{ field(class="form-control is-invalid", readonly=readonly)|safe }}
+    <div class="invalid-feedback">
+      {% for error in field.errors %}
+          <span class="text-red">{{ error }}</span>
+      {% endfor %}
+    </div>
+  </div>
+  <!-- Render this if form field not error -->
+  {% else %}
+  <div class="col-sm-8">
+    {{ field(class="form-control", readonly=readonly)|safe }}
+  </div>
+  {% endif %}
+</div>
+{% endmacro %}
+
+<!-- Form Field | Check Box -->
+{% macro render_checkbox(field, group_class, disabled=False) %}
+<div class="form-group row">
+  <div class="offset-sm-4 col-sm-8">
+    <div class="form-check">
+      <!-- Render this if form field error -->
+      {% if field.errors %}
+        {{ field(class="form-check-input is-invalid", disabled=disabled)|safe }}
+        <div class="invalid-feedback">
+          {% for error in field.errors %}
+              <span class="text-red">{{ error }}</span>
+          {% endfor %}
+        </div>
+      <!-- Render this if form field not error -->
+      {% else %}
+        {{ field(class="form-check-input", disabled=disabled)|safe }}
+      {% endif %}
+      {{ field.label(class="form-check-label") }}
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+<!-- Form Field | Input Text Area -->
+{% macro render_field(field, group_class, readonly=False, rows=3) %}
+<div class="form-group row">
+  {{ field.label(class="col-sm-4 col-form-label", readonly=False) }}
+  <!-- Render this if form field error -->
+  {% if field.errors %}
+  <div class="col-sm-8">
+    {{ field(class="form-control is-invalid", rows=rows, readonly=readonly)|safe }}
+    <div class="invalid-feedback">
+      {% for error in field.errors %}
+          <span class="text-red">{{ error }}</span>
+      {% endfor %}
+    </div>
+  </div>
+  <!-- Render this if form field not error -->
+  {% else %}
+  <div class="col-sm-8">
+    {{ field(class="form-control", rows=rows, readonly=readonly)|safe }}
+  </div>
+  {% endif %}
+</div>
+{% endmacro %}
+
+<!-- Form Field | Multiple Select -->
+{% macro render_multiple_select(field, group_class, disabled=False) %}
+<div class="form-group row">
+  {{ field.label(class="col-sm-4 col-form-label", disabled=False) }}
+  <!-- Render this if form field error -->
+  {% if field.errors %}
+  <div class="col-sm-8">
+    {{ field(class="form-control selectpicker is-invalid", disabled=disabled, multiple="multiple")|safe }}
+    <div class="invalid-feedback">
+      {% for error in field.errors %}
+          <span class="text-red">{{ error }}</span>
+      {% endfor %}
+    </div>
+  </div>
+  <!-- Render this if form field not error -->
+  {% else %}
+  <div class="col-sm-8">
+    {{ field(class="form-control selectpicker", disabled=disabled, multiple="multiple")|safe }}
+  </div>
+  {% endif %}
+</div>
+{% endmacro %}
+
+
+<!-- Form Button -->
+{% macro render_button(field, color) -%}
+<div class="form-check">
+  {{ field(class="offset-sm-4 btn btn-" + color) }}
+</div>
+{%- endmacro %}

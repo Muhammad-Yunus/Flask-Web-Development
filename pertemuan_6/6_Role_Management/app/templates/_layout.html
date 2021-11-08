@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Flask Web App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css" 
+        integrity="sha512-ARJR74swou2y0Q2V9k0GbzQ/5vJ2RBSoCWokg4zkfM29Fb3vZEQyv0iWBMW/yvKgyHSR/7D64pFMmU8nYmbRkg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/static/css/custom.css">
+    {% block style %}{% endblock %}
+</head>
+
+<body>
+    <!-- nav bar menu-->
+    <nav class="navbar bg-danger mb-3">
+        <ul class="nav">
+            {% if current_user.has_role('user') %}
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('home')}}"><span class="fa fa-home mr-1"></span>Home</a>
+            </li>
+            {% endif %}
+            {% if current_user.has_role('user') %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('users')}}"><span class="fa fa-users mr-1"></span>Users</a>
+            </li>
+            {% endif %}
+            {% if current_user.has_role('admin') %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('roles')}}"><span class="fa fa-cogs mr-1"></span>Roles</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('about')}}"><span class="fa fa-info mr-1"></span>About</a>
+            </li>
+        </ul>
+        {% if current_user.is_authenticated %}
+        <div class="">
+            
+            <span class="align-middle text-light h2 mb-0">
+                <span class="fa fa-user-circle-o mb-0"></span>
+            </span>
+            <a class="align-middle text-light mr-1" href="{{ url_for('user', id=current_user.id)}}">{{current_user.name}}</a>
+            <a class="align-middle text-light" href="{{ url_for('security.logout')}}">
+                <span class="fa fa-sign-out mr-1"></span></a>
+        </div>
+        {% endif %}
+    </nav>
+    <!-- end nav bar menu-->
+    <!-- flash message -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="d-flex justify-content-center">
+        <div class="alert alert-{{ category }} alert-dismissible fade show text-secondary alert-fixed" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <!-- end flash message -->
+    {% block content %}{% endblock %}
+</body>
+
+</html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js" 
+    integrity="sha512-ubuT8Z88WxezgSqf3RLuNi5lmjstiJcyezx34yIU2gAHonIi27Na7atqzUZCOoY4CExaoFumzOsFQ2Ch+I/HCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/fontawesome.min.js"
+    integrity="sha512-kI12xOdWTh/nL2vIx5Yf3z/kJSmY+nvdTXP2ARhepM/YGcmo/lmRGRttI3Da8FXLDw0Y9hRAyZ5JFO3NrCvvXA=="
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" 
+    integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    // menu on active change color
+    $('.nav > li.active').removeClass('active');
+    $('a[href="' + location.pathname + '"]').closest('li').addClass('active');
+
+</script>
+
+{% block script %}{% endblock %}
