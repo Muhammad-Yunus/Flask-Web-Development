@@ -1,0 +1,49 @@
+{% extends "widgets/admin/_layout_admin.html" %}
+{% block content %}
+{% set is_has_access = (current_user.has_role('admin') or current_user.id == form.id.data ) %}
+<div class="content-wrapper" style="min-height: 521px;">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    {% if form.name.data is none %}
+                    <h1 class="m-0">Role Form</h1>
+                    {% else %}
+                    <h1 class="m-0">{{form.name.data}}</h1>
+                    {% endif %}
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    {% with breadcrumb_labels=['Home', 'Roles', 'Role Form'], active_label='Role Form'  %}
+                        {% include 'widgets/admin/_breadcrumb.html'%}
+                    {% endwith %}
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- User Form to Submit -->
+                            {% from "widgets/_form_element_vertical.html" import render_field, render_field_area, render_checkbox, render_button %}
+                            <form method="POST" action="{{ url_for('role', id=form.id.data) }}">
+                                {{ form.hidden_tag() }}
+                                {{ render_field(form.name, readonly=True) }}
+                                {{ render_field_area(form.description) }}
+                                {{ render_button(form.submit, color="danger") }}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+</div>
+{% endblock %}

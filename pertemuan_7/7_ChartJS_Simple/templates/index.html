@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChartJS Simple</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css"
+        integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <h1>Demo Chart JS</h1>
+
+    <div style="width:487px !important; height:250px !important">
+        <canvas id="lineChart" width="487" height="250" ></canvas>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+    integrity="sha512-mf78KukU/a8rjr7aBRvCa2Vwg/q0tUjJhLtcK53PHEbFwCEqQ5durlzvVTgQgKpv+fyNMT6ZQT1Aq6tpNqf1mg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            // LINE CHART
+            var Data = {
+                labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [
+                    {
+                    label               : 'Temperature',
+                    data                : [28, 48, 40, 19, 86, 27, 90]
+                    },
+                    {
+                    label               : 'Humidity',
+                    data                : [65, 59, 80, 81, 56, 55, 40]
+                    },
+                ]
+            }
+            var ctx = document.getElementById('lineChart').getContext('2d');
+            var LineChart = new Chart(ctx, {
+                type: 'line',
+                data: Data,
+                options: {}
+            })
+        })
+    </script>
+</body>
+</html>

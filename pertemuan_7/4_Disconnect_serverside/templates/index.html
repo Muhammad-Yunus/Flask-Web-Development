@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket IO Demo</title>
+</head>
+<body>
+    <h1>Socket IO : Emit on Connect Demo</h1>
+    <button id="connect_button">Connect</button>
+    <button id="disconnect_button">Disonnect</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.4.0/socket.io.js"
+        integrity="sha512-Y8KodDCDqst1e8z0EGKiqEQq3T8NszmgW2HvsC6+tlNw7kxYxHTLl5Iw/gqZj/6qhZdBt+jYyOsybgSAiB9OOA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" charset="utf-8">
+        var socket = io();
+
+        socket.on('connect', function() {
+            socket.emit('server_event', 'Hello From Client, First Connection.');
+        });
+        socket.on('disconnect', function() {
+            console.log('I\'m Disconnected!');
+            socket.disconnect();
+        });
+
+        socket.on('client_event', function(msg) {
+            console.log('Receive Message : ', msg);
+            socket.emit('server_event', 'Hello From Client!');
+            
+        });
+
+        $('#connect_button').click(function(){
+            socket.connect();
+        });
+        $('#disconnect_button').click(function(){
+            socket.disconnect();
+        });
+    </script>
+</body>
+</html>

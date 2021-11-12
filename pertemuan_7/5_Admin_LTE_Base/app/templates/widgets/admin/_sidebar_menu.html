@@ -1,0 +1,65 @@
+<nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+        data-accordion="false">
+        <!-- Dashboard Menu -->
+        <li class="nav-item">
+            <a href="{{ url_for('home')}}" class="nav-link active">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                    Dashboard
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+                <li class="nav-item">
+                    <a href="{{ url_for('home')}}" class="nav-link active">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Platform Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Sensor Dashbaord</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- User Management Menu -->
+        <li class="nav-item">
+            <a href="{{ url_for('users')}}" class="nav-link active">
+                <i class="nav-icon fas fa-users"></i>
+                <p>
+                    User Management
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+                <li class="nav-item">
+                    <a href="{{ url_for('users')}}" class="nav-link active">
+                        <i class="fas fa-user nav-icon"></i>
+                        <p>Users</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{url_for('roles')}}" class="nav-link">
+                        <i class="fas fa-cogs nav-icon"></i>
+                        <p>Roles</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- About Menu -->
+        <li class="nav-item">
+            <a href="{{ url_for('about')}}" class="nav-link">
+                <i class="nav-icon fas fa-info"></i>
+                <p>
+                    About
+                    <span class="right badge badge-danger">New</span>
+                </p>
+            </a>
+        </li>
+    </ul>
+</nav>

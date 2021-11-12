@@ -1,0 +1,111 @@
+{% extends "widgets/admin/_layout_admin.html" %}
+{% block content %}
+<div class="content-wrapper" style="min-height: 521px;">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Dashboard</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    {% with breadcrumb_labels=['Home', 'Dashboard'], active_label='Dashboard'  %}
+                        {% include 'widgets/admin/_breadcrumb.html'%}
+                    {% endwith %}
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- INFO BOX -->
+                <div class="col-md-3">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cube"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Connected</span>
+                            <span class="info-box-number">
+                                10
+                                <small>Device</small>
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-exchange-alt"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Data Received</span>
+                            <span class="info-box-number">
+                                451.000
+                                <small>Message</small>
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-server"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Uptime</span>
+                            <span class="info-box-number">
+                                143
+                                <small>Days</small>
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-users"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Users</span>
+                            <span class="info-box-number">
+                                2
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </div>
+                <!-- LINE CHART -->
+                <div class="col-md-8">
+                    <div class="card card-info">
+                        <div class="card-header">
+                            Sensor Data
+                        </div>
+                        <div class="card-body">
+                            <div class="chart">
+                                {% from "widgets/chart/_line_chart.html" import render_line_chart %}
+                                {{ render_line_chart(line_chart) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PIE CHART -->
+                <div class="col-md-4">
+                    <div class="card card-success">
+                        <div class="card-header">
+                            Sensor Type
+                        </div>
+                        <div class="card-body">
+                            <div class="chart">
+                                {% from "widgets/chart/_pie_chart.html" import render_pie_chart %}
+                                {{ render_pie_chart(pie_chart) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+</div>
+{% endblock %}

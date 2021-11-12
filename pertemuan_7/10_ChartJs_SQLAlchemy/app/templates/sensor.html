@@ -1,0 +1,61 @@
+{% extends "widgets/admin/_layout_admin.html" %}
+{% block content %}
+{% set is_has_access = current_user.has_role('admin')  %}
+<div class="content-wrapper" style="min-height: 521px;">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    {% if form.name.data is none %}
+                    <h1 class="m-0">Sensor Form</h1>
+                    {% else %}
+                    <h1 class="m-0">{{form.name.data}}</h1>
+                    {% endif %}
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    {% with breadcrumb_labels=['Home', 'Sensors', 'Sensor Form'], active_label='Sensor Form'  %}
+                        {% include 'widgets/admin/_breadcrumb.html'%}
+                    {% endwith %}
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- User Form to Submit -->
+                            {% from "widgets/_form_element_vertical.html" import render_field, render_checkbox, render_multiple_select, render_button %}
+                            <form method="POST" action="{{ url_for('sensor', id=form.id.data) }}">
+                                {{ form.hidden_tag() }}
+                                {{ render_field(form.name, readonly=not is_has_access) }}
+                                {{ render_field(form.device_no, readonly=not is_has_access) }}
+                                {{ render_field(form.device_type, readonly=not is_has_access) }}
+                                {{ render_field(form.time, field_class="datetimepicker", readonly=not is_has_access )}}
+                                {{ render_field(form.value, readonly=not is_has_access) }}
+                                {% if is_has_access %}
+                                    {{ render_button(form.submit, "info") }}
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+</div>
+{% endblock %}
+{% block script %}
+<script>
+$('.datetimepicker').datetimepicker({
+    format: 'yyyy-mm-dd hh:ii:ss'
+});
+</script>
+{% endblock %}

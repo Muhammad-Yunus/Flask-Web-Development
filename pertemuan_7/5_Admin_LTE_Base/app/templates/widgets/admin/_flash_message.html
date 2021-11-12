@@ -1,0 +1,24 @@
+{% set messages_ = []%}
+{% for msg in messages %}
+    {{ messages_.append([msg[0], msg[1]]) }}
+{% endfor %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+    var messages = {{ messages_ | safe }};
+    for (msg of messages){
+        if (msg[0] == 'success'){
+            toastr.success(msg[1]);
+        }
+        if (msg[0] == 'info'){
+            toastr.info(msg[1]);
+        }
+        if (msg[0] == 'danger' || msg[0] == 'error'){
+            toastr.error(msg[1]);
+        }
+        if (msg[0] == 'warning'){
+            toastr.warning(msg[1]);
+        }
+    }
+});
+</script>

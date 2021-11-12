@@ -24,10 +24,10 @@
 	- Flask - User Authorization 
 	- Flask - Scaffolding (Flask App)
 	- Flask - Scaffolding (UI Screen)
-- Pertemuan 7 (Dashboard & Asynchronous Task)
-	- Flask - Websocket (Socket.io)
-	- Flask - Dashboard 
-	- Flask - Background Task
+- Pertemuan 7 (SocketIO, Chart.Js & AdminLTE Template) - [Download Materi (Zip)](https://github.com/Muhammad-Yunus/Flask-Web-Development/raw/main/pertemuan_7/pertemuan_7.zip)
+	- Flask - SocketIO
+	- Admin LTE Template 
+	- Chart JS
 - Pertemuan 8 (Data Integration)
 	- Flask - REST API (GET & POST)
 	- Flask - MQTT Subscribe

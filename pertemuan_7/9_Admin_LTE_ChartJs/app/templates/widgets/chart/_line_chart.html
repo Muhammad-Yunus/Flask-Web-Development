@@ -1,0 +1,57 @@
+{% macro render_line_chart(_CHART_) -%}
+
+<canvas id="lineChart_{{ _CHART_.name }}"
+    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 487px;"
+    width="487" height="250" class="chartjs-render-monitor"></canvas>
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function(event) {
+  
+      var Data = {
+        labels  : {{ _CHART_.labels|tojson|safe }},
+        datasets: {{ _CHART_.datasets|tojson|safe }}
+      }
+  
+      var Options = {{ _CHART_.options|tojson|safe if _CHART_.options else '{}'}};
+      var defaultOptions = {
+        maintainAspectRatio : false,
+        responsive : true,
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            gridLines : {
+              display : false,
+            }
+          }],
+          yAxes: [{
+            gridLines : {
+              display : false,
+            }
+          }]
+        }
+      }
+  
+      if (Object.keys(Options).length === 0){
+          Options = defaultOptions;
+          console.log('[INFO] Using default options!')
+      }
+  
+      var ctx = $('#lineChart_{{ _CHART_.name|safe}}').get(0).getContext('2d');
+      for (var i = 0; i < Data.datasets.length; i++){
+        Data.datasets[i].fill = false;
+      }
+
+      Options.datasetFill = false;
+  
+      var LineChart = new Chart(ctx, {
+        type: 'line',
+        data: Data,
+        options: Options
+      })
+
+  })
+  </script>
+{%- endmacro %}
