@@ -1,0 +1,51 @@
+{% macro render_gauge_chart(_CHART_) -%}
+
+<canvas id="gaugeChart_{{ _CHART_.name }}" class="chartjs-render-monitor" style="max-height:250px"></canvas>
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function(event) {
+  
+      var Data = {
+        labels: {{ _CHART_.labels|tojson|safe }},
+        datasets: {{ _CHART_.datasets|tojson|safe }}
+      }
+  
+      var UpdateOptions = {{ _CHART_.options|tojson|safe if _CHART_.options else '{}'}};
+      var Options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        needle: {
+          radiusPercentage: 2,
+          widthPercentage: 3.2,
+          lengthPercentage: 80,
+          color: 'rgba(0, 0, 0, 1)'
+        },
+        plugins: {
+          datalabels: {
+            display: true,
+            formatter: function (value, context) {
+              return '< ' + value;
+            },
+            color: 'rgba(255, 255, 255, 1.0)',
+            borderWidth: 0,
+            borderRadius: 5,
+            font: {
+              size: 9,
+            }
+          }
+        }
+      }
+  
+      jQuery.extend(true, Options, UpdateOptions);
+  
+      var ctx = $('#gaugeChart_{{ _CHART_.name }}').get(0).getContext('2d');
+
+      window.Chart_{{ _CHART_.name }} = new Chart(ctx, {
+        type: 'gauge',
+        data: Data,
+        options: Options
+      })
+  })
+  </script>
+{%- endmacro %}

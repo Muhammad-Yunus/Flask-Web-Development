@@ -1,0 +1,13 @@
+<div class="row mb-2">
+  <div class="col-md-12">
+    <form method="POST" action="{{ url_for(destination) }}">
+      <div class="form-inline">
+        <input type="text" name={{search_key}} type="search" class="form-control mr-sm-2" placeholder="Search"
+          value="{{ session[search_key] or '' }}" />
+        <button type="submit" class="btn btn-primary my-2 my-sm-0 mr-sm-2">
+          <i class="fa fa-search"></i> Search
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

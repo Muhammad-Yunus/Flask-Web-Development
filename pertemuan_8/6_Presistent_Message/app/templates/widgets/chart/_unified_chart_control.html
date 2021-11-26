@@ -1,0 +1,102 @@
+{% macro render_unified_chart_control() -%}
+
+<button id="StartStream" class="btn btn-primary btn-sm mb-1 mr-1"><span
+        class="fas fa-play"></span></button>
+<button id="StopStream" class="btn btn-danger btn-sm mb-1 mr-1" disabled><span
+        class="fas fa-stop"></span></button>
+<button id="ClearChart" class="btn btn-success btn-sm mb-1 mr-1"><span
+        class="fas fa-eraser"></span></button>
+<span id="LabelConnection" class="btn btn-secondary btn-sm mb-1">
+        <span class="fas fa-plug mr-1"></span>disconnected </span>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+        // Socket.IO Listener
+        var socket = io();
+
+        {% for _CHART_ in varargs %}
+        socket.on('{{ _CHART_.event }}', function (msg) {
+            console.log('Receive Message : ', msg, ' in event {{ _CHART_.event }}');
+
+            {% if _CHART_.type == 'gauge' %}
+            window.Chart_{{ _CHART_.name }}.data.datasets[0].value = msg.datasets[0].value;
+            {% else %}
+            var currentLabelAdded = false;
+            for (var i = 0; i < msg.datasets.length; i++){
+                // find idx datasets and data_idx datasets.data
+                var idx = window.Chart_{{ _CHART_.name }}.data.datasets.findIndex(item => item.label === msg.datasets[i].label);
+                var data_idx = window.Chart_{{ _CHART_.name }}.data.labels.findIndex(item => item === msg.label)
+
+                // Update dataset
+                if (idx > -1) {
+                    // Update datasets.data
+                    if (data_idx > -1 && msg.label !== "" && !currentLabelAdded) {
+                        window.Chart_{{ _CHART_.name }}.data.datasets[idx].data[data_idx] = msg.datasets[i].data;
+                    }
+                    // Add new datasets.data
+                    else {
+                        window.Chart_{{ _CHART_.name }}.data.datasets[idx].data.unshift(msg.datasets[i].data);
+                        if (msg.label !== "" && !currentLabelAdded) window.Chart_{{ _CHART_.name }}.data.labels.unshift(msg.label);
+                    }
+                    currentLabelAdded = true;
+                }
+                // Add new dataset
+                else {
+                    window.Chart_{{ _CHART_.name }}.data.datasets.unshift({
+                        label: msg.datasets[i].label,
+                        data: [msg.datasets[i].data],
+                        borderColor: msg.datasets[i].borderColor,
+                        backgroundColor: msg.datasets[i].backgroundColor,
+                    });
+                    if (msg.label !== "" && !currentLabelAdded) window.Chart_{{ _CHART_.name }}.data.labels.unshift(msg.label);
+                    currentLabelAdded = true;
+                }
+            }
+            
+            {% endif %}    
+            window.Chart_{{ _CHART_.name }}.update();
+            $("#LastReceive_{{ _CHART_.name }}").text(new Date().toLocaleTimeString());
+            socket.emit("{{ _CHART_.start_event }}", "update");
+        });
+        {% endfor %}
+
+
+        // On Start Stream Clicked
+        $('#StartStream').click(function () {
+            socket.connect();
+            {% for _CHART_ in varargs %}
+            socket.emit("{{ _CHART_.start_event }}", "start");
+            {% endfor %}
+            $('#StartStream').prop("disabled", true);
+            $("#StopStream").prop("disabled", false);
+            $("#LabelConnection").removeClass('btn-secondary').addClass('btn-success').html('<span class="fas fa-plug mr-1"></span>connected');
+            toastr.info("Streaming started!");
+        });
+
+        // On Stop Stream Clicked
+        $('#StopStream').click(function () {
+            socket.disconnect();
+            {% for _CHART_ in varargs %}
+            socket.emit("{{ _CHART_.start_event }}", "stop");
+            $("#LastReceive_{{ _CHART_.name }}").text('');
+            {% endfor %}
+            $('#StopStream').prop("disabled", true);
+            $("#StartStream").prop("disabled", false);
+            $("#LabelConnection").removeClass('btn-success').addClass('btn-secondary').html('<span class="fas fa-plug mr-1"></span>disconnected');
+            toastr.error("Streaming stopped!");
+        });
+
+        // On Chart Clear
+        $('#ClearChart').click(function () {
+            {% for _CHART_ in varargs %}
+            {% if _CHART_.type != 'gauge' %}
+            window.Chart_{{ _CHART_.name }}.data.datasets = [];
+            window.Chart_{{ _CHART_.name }}.data.labels = [];
+            window.Chart_{{ _CHART_.name }}.update();
+            {% endif %}
+            {% endfor %}
+            toastr.success("Chart cleared successfully!");
+        });
+    });
+</script>
+{%- endmacro %}

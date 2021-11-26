@@ -9,6 +9,5 @@ greenlet
 eventlet 
 gevent
 gevent-websocket
-python-socketio
-flask-socketio
+flask-socketio==4.3.2
 

@@ -1,0 +1,46 @@
+{% macro render_horizontal_bar_chart(_CHART_) -%}
+
+<canvas id="horizontal_barChart_{{ _CHART_.name }}"
+    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 487px;"
+    width="487" height="250" class="chartjs-render-monitor"></canvas>
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function(event) {
+  
+      var Data = {
+        labels: {{ _CHART_.labels|tojson|safe }},
+        datasets: {{ _CHART_.datasets|tojson|safe }}
+      }
+  
+      var UpdateOptions = {{ _CHART_.options|tojson|safe if _CHART_.options else '{}'}};
+      var Options = {
+        maintainAspectRatio: false,
+        responsive: true,
+        scales: {
+          yAxes: [{
+              ticks: {
+                  beginAtZero: true 
+              }
+          }]
+        },
+        plugins: {
+          datalabels: {
+            display: false,
+          }
+        }
+      }
+  
+      jQuery.extend(true, Options, UpdateOptions);
+
+      var ctx = $('#horizontal_barChart_{{ _CHART_.name }}').get(0).getContext('2d');
+
+      window.Chart_{{ _CHART_.name }} = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: Data,
+        options: Options
+      })
+
+  })
+  </script>
+{%- endmacro %}

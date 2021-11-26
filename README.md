@@ -28,10 +28,9 @@
 	- Flask - SocketIO
 	- Admin LTE Template 
 	- Chart JS
-- Pertemuan 8 (Data Integration)
-	- Flask - REST API (GET & POST)
-	- Flask - MQTT Subscribe
-	- Flask - MQTT Publish
+- Pertemuan 8 (SocketIO & Chart.Js Integration, HTTP API Integration) - [Download Materi (Zip)](https://github.com/Muhammad-Yunus/Flask-Web-Development/raw/main/pertemuan_8/pertemuan_8.zip)
+	- Chart JS & SocketIO Integration
+	- Flask - REST API (POST)
 - Pertemuan 9 (Flask Deployment)
 	- Flask - Serving App (Gunicorn)
 	- Flask - Configure SSL 

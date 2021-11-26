@@ -1,0 +1,12 @@
+{% if record_list.items != [] %}
+    {{ record_list.per_page*(record_list.page - 1) + 1 }} 
+    to 
+    {{ record_list.per_page*record_list.page 
+        if record_list.per_page*record_list.page <= count else count }}
+    of 
+    {{ count }} 
+    records
+{% else %}
+    No record to show...
+{% endif%}
+
