@@ -1,0 +1,79 @@
+{% extends "widgets/admin/_layout_admin.html" %}
+{% block content %}
+<div class="content-wrapper" style="min-height: 521px;">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Users</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    {% with breadcrumb_labels=['Home', 'Users'], active_label='Users'  %}
+                        {% include 'widgets/admin/_breadcrumb.html'%}
+                    {% endwith %}
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                        </div>
+                        <div class="col-sm-6">
+                            {% if current_user.has_role('admin') %}
+                            <div class="float-right">
+                                <a href="{{ url_for('user', id = 0) }}" class="text-info">
+                                    <span class="fa fa-plus-circle mr-1"></span>
+                                    Add a New User
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- Button Widget -->
+                    {% from "widgets/_form_element_vertical.html" import render_button %}
+                    <!-- Table Records Widget -->
+                    {% from 'widgets/_table_records.html' import render_tableRecords %}
+                        {% call(loop, record) render_tableRecords(record_list, record_header, 
+                                                        record_count, min_page, max_page, destination, search_key) %}
+                            <!-- Create Table Content -->
+                            <td>{{ loop.index + record_list.per_page*(record_list.page - 1)}}</td>
+                            <td><a href="{{ url_for('user', id = record.id) }}">
+                                {{ record.name }}
+                                </a>
+                            </td>
+                            <td>{{ record.email }}</td>
+                            <td>{{ record.phone }}</td>
+                            <td><i class= "fas {{ 'fa-check text-success' if record.active else 'fa-times text-danger'}}" ></i></td>
+                            <td>{{ record.confirmed_at.strftime("%m/%d/%Y %H:%M:%S") }}</td>
+                            {% if current_user.has_role('admin') %}
+                            <td class="text-right px-0">
+                                <form method="POST" action="{{ url_for('user_delete', id=record.id) }}" class="mr-2">
+                                    {{ render_button(action.delete, "danger btn-sm") }}
+                                </form>
+                            </td>
+                            <td class="px-0">
+                                <form method="POST" action="{{ url_for('user_activate', id=record.id, active=not record.active) }}">
+                                    {% if not record.active %}
+                                        {{ render_button(action.activate, "success btn-sm") }}
+                                    {% else %}
+                                        {{ render_button(action.deactivate, "warning btn-sm") }}
+                                    {% endif %}
+                                </form>
+                            </td>
+                            {% endif %}
+                        {% endcall %}
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+</div>
+{% endblock %}

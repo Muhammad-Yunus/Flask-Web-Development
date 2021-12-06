@@ -1,0 +1,98 @@
+{% macro render_line_chart(_CHART_) -%}
+
+<canvas id="lineChart_{{ _CHART_.name }}"
+  style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 487px;"
+  width="487" height="250" class="chartjs-render-monitor"></canvas>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function (event) {
+
+    var Data = {
+          labels: {{ _CHART_.labels| tojson | safe }},
+          datasets: {{ _CHART_.datasets | tojson | safe }}
+        }
+
+    var UpdateOptions = {{ _CHART_.options| tojson | safe if _CHART_.options else '{}'}};
+    var Options = {
+      maintainAspectRatio: false,
+      responsive: true,
+      elements: {
+          line: {
+            fill: false,
+            borderWidth: 2
+          },
+          point: {
+            radius: 0
+          }
+      },
+      legend: {
+        display: false
+      },
+      scales: {
+        xAxes: [{
+          gridLines: {
+            display: true,
+          }
+        }],
+        yAxes: [{
+          gridLines: {
+            display: true,
+          }
+        }]
+      },
+      plugins: {
+        datalabels: {
+          display: false,
+        }
+      }
+    }
+
+    jQuery.extend(true, Options, UpdateOptions);
+
+    var ctx = $('#lineChart_{{ _CHART_.name }}').get(0).getContext('2d');
+    for (var i = 0; i < Data.datasets.length; i++) {
+      Data.datasets[i].fill = false;
+    }
+    Options.datasetFill = false;
+
+    // keep the chart as global object in 'window' 
+    window.Chart_{{ _CHART_.name }} = new Chart(ctx, {
+      type: 'line',
+      data: Data,
+      options: Options
+    })
+    
+    // update time unit
+    if (hasOwnNestedProperty(window, 'filter_date')){
+      if (hasOwnNestedProperty(window.Chart_{{ _CHART_.name }}, 'config.options.scales.xAxes[0].time.unit')){
+        var num_second = 0;
+        if(window.filter_date.is_quick_range) {
+            var quick_range_data  = window.filter_date.data; 
+            var code              = quick_range_data.slice(-1);
+            var num               =  parseInt(quick_range_data.slice(0, -1));
+            num_second            = moment.duration(num, code).as('seconds');
+        }
+        else {
+            var from_timestamp = Date.parse(window.filter_date.from_date)/1000;
+            var to_timestamp = Date.parse(window.filter_date.to_date)/1000;
+            num_second = to_timestamp - from_timestamp;
+
+        }
+
+        // choose unit time
+        var unit_time = 'second';
+        if (num_second <= 300) unit_time = 'second'; // under 5m
+        else if (num_second <= 3600) unit_time = 'minute'; // under 1 hour
+        else if (num_second <= 172800) unit_time = 'hour'; // under 2 day
+        else if (num_second <= 2592000) unit_time = 'day'; // under 90 day
+        else if (num_second <= 31104000) unit_time = 'week'; // under 1 year
+        
+        window.Chart_{{ _CHART_.name }}.config.options.scales.xAxes[0].time.unit = unit_time;
+        window.Chart_{{ _CHART_.name }}.update();
+        console.log(unit_time);
+      }
+    }
+    
+  });
+</script>
+{%- endmacro %}

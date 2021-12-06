@@ -1,0 +1,180 @@
+{% macro render_filter_date_range(form) -%}
+<div class="dropdown show btn btn-success btn-sm mb-1">
+    <span data-toggle="dropdown" aria-expanded="true">
+        <i class="far fa-calendar mr-1"></i>
+
+        {% if form.quick_range.data %}
+            {% if form.data.data == '1d' %} 
+                {{'Today'}}
+            {% elif form.data.data == '2d' %} 
+                {{'Last 2 days'}}
+            {% elif form.data.data == '7d' %} 
+                {{'Last 7 days'}}
+            {% elif form.data.data == '30d' %} 
+                {{'Last 30 days'}}
+            {% elif form.data.data == '90d' %} 
+                {{'Last 90 days'}}
+            {% elif form.data.data == '6M' %} 
+                {{'Last 6 months'}}
+            {% elif form.data.data == '1y' %} 
+                {{'Last 1 year'}}
+            {% elif form.data.data == '5m' %} 
+                {{'Last 5 minutes'}}
+            {% elif form.data.data == '15m' %} 
+                {{'Last 15 minutes'}}
+            {% elif form.data.data == '30m' %} 
+                {{'Last 30 minutes'}}
+            {% elif form.data.data == '1h' %} 
+                {{'Last 1 hour'}}
+            {% elif form.data.data == '3h' %} 
+                {{'Last 3 hours'}}
+            {% elif form.data.data == '6h' %} 
+                {{'Last 6 hours'}}
+            {% elif form.data.data == '12h' %} 
+                {{'Last 12 hours'}}
+            {% endif %}
+                
+        {% else %}
+        {{ form.from_date.data.strftime("%m/%d/%Y %H:%M:%S") }} - {{ form.to_date.data.strftime("%m/%d/%Y %H:%M:%S") }}
+        {% endif %}
+    </span>
+    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right mt-2" style="min-width: 30vw;">
+        <span class="dropdown-header mr-1">Quick Ranges
+            {% if form.quick_range.data %}
+            <span class="fas fa-check text-success"></span>
+            {% endif %}
+        </span> 
+        <div class="dropdown-divider"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <a href="{{ url_for('filter_date', filter='1d') }}" class="dropdown-item text-sm py-1">
+                    <i class="fas fa-calendar mr-2"></i> Today
+                    {% if form.quick_range.data and form.data.data == '1d' %} 
+                    <span class="float-right badge badge-danger mt-1">selected</span> 
+                    {% endif %}
+                </a>
+                <a href="{{ url_for('filter_date', filter='2d') }}" class="dropdown-item text-sm py-1">
+                    <i class="fas fa-calendar mr-2"></i> Last 2 days
+                    {% if form.quick_range.data and form.data.data == '2d' %} 
+                    <span class="float-right badge badge-danger mt-1">selected</span> 
+                    {% endif %}
+                </a>
+                <a href="{{ url_for('filter_date', filter='7d') }}" class="dropdown-item text-sm py-1">
+                    <i class="fas fa-calendar mr-2"></i> Last 7 days
+                    {% if form.quick_range.data and form.data.data == '7d' %} 
+                    <span class="float-right badge badge-danger mt-1">selected</span> 
+                    {% endif %}
+                </a>
+                <a href="{{ url_for('filter_date', filter='30d') }}" class="dropdown-item text-sm py-1">
+                    <i class="fas fa-calendar mr-2"></i> Last 30 days
+                    {% if form.quick_range.data and form.data.data == '30d' %} 
+                    <span class="float-right badge badge-danger mt-1">selected</span> 
+                    {% endif %}
+                </a>
+                <a href="{{ url_for('filter_date', filter='90d') }}" class="dropdown-item text-sm py-1">
+                    <i class="fas fa-calendar mr-2"></i> Last 90 days
+                    {% if form.quick_range.data and form.data.data == '90d' %} 
+                    <span class="float-right badge badge-danger mt-1">selected</span> 
+                    {% endif %}
+                </a>
+                <a href="{{ url_for('filter_date', filter='6M') }}" class="dropdown-item text-sm py-1">
+                    <i class="fas fa-calendar mr-2"></i> Last 6 months
+                    {% if form.quick_range.data and form.data.data == '6M' %} 
+                    <span class="float-right badge badge-danger mt-1">selected</span> 
+                    {% endif %}
+                </a>
+                <a href="{{ url_for('filter_date', filter='1y') }}" class="dropdown-item text-sm py-1">
+                    <i class="fas fa-calendar mr-2"></i> Last 1 year
+                    {% if form.quick_range.data and form.data.data == '1y' %} 
+                    <span class="float-right badge badge-danger mt-1">selected</span> 
+                    {% endif %}
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="{{ url_for('filter_date', filter='5m') }}" class="dropdown-item text-sm py-1">
+                    <i class="fas fa-clock mr-2"></i> Last 5 minutes
+                    {% if form.quick_range.data and form.data.data == '5m' %} 
+                    <span class="float-right badge badge-danger mt-1">selected</span> 
+                    {% endif %}
+                </a>
+                <a href="{{ url_for('filter_date', filter='15m') }}" class="dropdown-item text-sm py-1">
+                    <i class="fas fa-clock mr-2"></i> Last 15 minutes
+                    {% if form.quick_range.data and form.data.data == '15m' %} 
+                    <span class="float-right badge badge-danger mt-1">selected</span> 
+                    {% endif %}
+                </a>
+                <a href="{{ url_for('filter_date', filter='30m') }}" class="dropdown-item text-sm py-1">
+                    <i class="fas fa-clock mr-2"></i> Last 30 minutes
+                    {% if form.quick_range.data and form.data.data == '30m' %} 
+                    <span class="float-right badge badge-danger mt-1">selected</span> 
+                    {% endif %}
+                </a>
+                <a href="{{ url_for('filter_date', filter='1h') }}" class="dropdown-item text-sm py-1">
+                    <i class="fas fa-clock mr-2"></i> Last 1 hour
+                    {% if form.quick_range.data and form.data.data == '1h' %} 
+                    <span class="float-right badge badge-danger mt-1">selected</span> 
+                    {% endif %}
+                </a>
+                <a href="{{ url_for('filter_date', filter='3h') }}" class="dropdown-item text-sm py-1">
+                    <i class="fas fa-clock mr-2"></i> Last 3 hour
+                    {% if form.quick_range.data and form.data.data == '3h' %} 
+                    <span class="float-right badge badge-danger mt-1">selected</span> 
+                    {% endif %}
+                </a>
+                <a href="{{ url_for('filter_date', filter='6h') }}" class="dropdown-item text-sm py-1">
+                    <i class="fas fa-clock mr-2"></i> Last 6 hour
+                    {% if form.quick_range.data and form.data.data == '6h' %} 
+                    <span class="float-right badge badge-danger mt-1">selected</span> 
+                    {% endif %}
+                </a>
+                <a href="{{ url_for('filter_date', filter='12h') }}" class="dropdown-item text-sm py-1">
+                    <i class="fas fa-clock mr-2"></i> Last 12 hour
+                    {% if form.quick_range.data and form.data.data == '12h' %} 
+                    <span class="float-right badge badge-danger mt-1">selected</span> 
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+
+        <div class="dropdown-divider"></div>
+        <span class="dropdown-item dropdown-footer mr-1">
+            Custom Range
+            {% if not form.quick_range.data %}
+            <span class="fas fa-check text-success"></span>
+            {% endif %}
+        </span>
+        <div class="dropdown-divider"></div>
+        <div class="p-3">
+            <!-- Filter Form to Submit -->
+            {% from "widgets/_form_element_horizontal.html" import render_field, render_button %}
+            <form method="POST" action="{{ url_for('filter_date', filter='0') }}">
+                {{ form.hidden_tag() }}
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ render_field(form.from_date, field_class="from_date form-control-sm") }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ render_field(form.to_date, field_class="to_date form-control-sm")  }}
+                    </div>
+                    <div class="col-md-12">
+                        {{ render_button(form.submit, color="success btn-sm float-right") }}
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="dropdown-divider"></div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+        $('.from_date').datetimepicker({
+            format: 'yyyy-mm-dd hh:ii:ss'
+        });
+        $('.to_date').datetimepicker({
+            format: 'yyyy-mm-dd hh:ii:ss'
+        });
+    });
+</script>
+
+{%- endmacro %}

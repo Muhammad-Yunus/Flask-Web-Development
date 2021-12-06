@@ -1,0 +1,14 @@
+DEBUG = False
+
+# Create Secutiry Config (ext.)
+
+SECURITY_LOGIN_URL = "/login"
+SECURITY_LOGOUT_URL = "/logout"
+SECURITY_REGISTER_URL = "/register"
+SECURITY_CHANGE_URL = "/change"
+SECURITY_RESET_URL = "/reset"
+
+
+SECURITY_REGISTERABLE = True 
+SECURITY_CHANGEABLE = True
+SECURITY_RECOVERABLE = True

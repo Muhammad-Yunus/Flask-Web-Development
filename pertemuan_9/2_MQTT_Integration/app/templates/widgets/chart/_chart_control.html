@@ -1,0 +1,97 @@
+{% macro render_chart_control(_CHART_) -%}
+<button id="StartStream_{{ _CHART_.name }}" class="btn btn-primary btn-sm mb-1 mr-1"><span
+        class="fas fa-play"></span></button>
+<button id="StopStream_{{ _CHART_.name }}" class="btn btn-danger btn-sm mb-1 mr-1" disabled><span
+        class="fas fa-stop"></span></button>
+{% if _CHART_.type != 'gauge' %}
+<button id="ClearChart_{{ _CHART_.name }}" class="btn btn-success btn-sm mb-1"><span
+        class="fas fa-eraser"></span></button>
+{% endif %}
+<span id="LabelConnection_{{ _CHART_.name }}" class="badge badge-secondary float-right mr-4"><span class="fas fa-plug"></span></span>
+<small id="LastReceive_{{ _CHART_.name }}" class="float-right mr-1"></small>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+        // Socket.IO Listener
+        var socket = io();
+
+        socket.on('{{ _CHART_.event }}', function (msg) {
+            console.log('Receive Message : ', msg, ' in event {{ _CHART_.event }}');
+
+            {% if _CHART_.type == 'gauge' %}
+            window.Chart_{{ _CHART_.name }}.data.datasets[0].value = msg.datasets[0].value;
+            {% else %}
+            var currentLabelAdded = false;
+            for (var i = 0; i < msg.datasets.length; i++){
+                // find idx datasets and data_idx datasets.data
+                var idx = window.Chart_{{ _CHART_.name }}.data.datasets.findIndex(item => item.label === msg.datasets[i].label);
+                var data_idx = window.Chart_{{ _CHART_.name }}.data.labels.findIndex(item => item === msg.label)
+
+                // Update dataset
+                if (idx > -1) {
+                    // Update datasets.data
+                    if (data_idx > -1 && msg.label !== "" && !currentLabelAdded) {
+                        window.Chart_{{ _CHART_.name }}.data.datasets[idx].data[data_idx] = msg.datasets[i].data;
+                    }
+                    // Add new datasets.data
+                    else {
+                        window.Chart_{{ _CHART_.name }}.data.datasets[idx].data.unshift(msg.datasets[i].data);
+                        if (msg.label !== "" && !currentLabelAdded) window.Chart_{{ _CHART_.name }}.data.labels.unshift(msg.label);
+                    }
+                    currentLabelAdded = true;
+                }
+                // Add new dataset
+                else {
+                    window.Chart_{{ _CHART_.name }}.data.datasets.unshift({
+                        label: msg.datasets[i].label,
+                        data: [msg.datasets[i].data],
+                        borderColor: msg.datasets[i].borderColor,
+                        backgroundColor: msg.datasets[i].backgroundColor,
+                    });
+                    if (msg.label !== "" && !currentLabelAdded) window.Chart_{{ _CHART_.name }}.data.labels.unshift(msg.label);
+                    currentLabelAdded = true;
+                }
+            }
+            
+            {% endif %}    
+            window.Chart_{{ _CHART_.name }}.update();
+            $("#LastReceive_{{ _CHART_.name }}").text(new Date().toLocaleTimeString());
+            
+            //disable since update is comming from external systems (API integration)
+            //socket.emit("{{ _CHART_.start_event }}", "update");
+
+        });
+
+        // On Start Stream Clicked
+        $('#StartStream_{{ _CHART_.name }}').click(function () {
+            socket.connect();
+            //disable since update is comming from external systems (API integration)
+            //socket.emit("{{ _CHART_.start_event }}", "start");
+            $('#StartStream_{{ _CHART_.name }}').prop("disabled", true);
+            $("#StopStream_{{ _CHART_.name }}").prop("disabled", false);
+            $("#LabelConnection_{{ _CHART_.name }}").removeClass('badge-secondary').addClass('badge-success');
+            toastr.info("Streaming started!");
+        });
+
+        // On Stop Stream Clicked
+        $('#StopStream_{{ _CHART_.name }}').click(function () {
+            socket.disconnect();
+            //disable since update is comming from external systems (API integration)
+            //socket.emit("{{ _CHART_.start_event }}", "stop");
+            $('#StopStream_{{ _CHART_.name }}').prop("disabled", true);
+            $("#StartStream_{{ _CHART_.name }}").prop("disabled", false);
+            $("#LabelConnection_{{ _CHART_.name }}").removeClass('badge-success').addClass('badge-secondary');
+            $("#LastReceive_{{ _CHART_.name }}").text('');
+            toastr.error("Streaming stopped!");
+        });
+
+        // On Chart Clear
+        $('#ClearChart_{{ _CHART_.name }}').click(function () {
+            window.Chart_{{ _CHART_.name }}.data.datasets = [];
+            window.Chart_{{ _CHART_.name }}.data.labels = [];
+            window.Chart_{{ _CHART_.name }}.update();
+            toastr.success("Chart cleared successfully!");
+        });
+    });
+</script>
+{%- endmacro %}
