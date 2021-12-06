@@ -31,7 +31,12 @@
 - Pertemuan 8 (SocketIO & Chart.Js Integration, HTTP API Integration) - [Download Materi (Zip)](https://github.com/Muhammad-Yunus/Flask-Web-Development/raw/main/pertemuan_8/pertemuan_8.zip)
 	- Chart JS & SocketIO Integration
 	- Flask - REST API (POST)
-- Pertemuan 9 (Flask Deployment)
-	- Flask - Serving App (Gunicorn)
-	- Flask - Configure SSL 
-	- Flask - Deploy into Linux VPS
+- Pertemuan 9 (Flask Deployment) - [Download Materi (Zip)](https://github.com/Muhammad-Yunus/Flask-Web-Development/raw/main/pertemuan_9/pertemuan_9.zip)
+	- Create AWS EC2 Instance
+	- Deploy Flask App to EC2 AWS Instance 
+	- Add Inbound & Outpbound Rule in AWS Security Group
+	- Serve Flask App using Gunicorn 
+	- Run Flask as daemon using Systemd
+	- Use NGINX as Reverse Proxy Server for Gunicorn
+	- Point Domain to EC2 Instance
+	- Configuring SSL using Let’s Encrypt & Certbot
